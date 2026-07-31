@@ -38,6 +38,14 @@
     /^prova\s+google\s+ai\s+(pro|ultra)\b/i,
   ];
 
+  // Patterns that only apply on one host. "Studio" is a real product name on
+  // aistudio.google.com — matching it everywhere would hide something you want.
+  const HOST_PATTERNS = {
+    'mail.google.com': [/^studio$/i],
+  };
+
+  const ACTIVE_PATTERNS = PROMO_PATTERNS.concat(HOST_PATTERNS[location.hostname] || []);
+
   // Accessible names longer than this are containers, not buttons.
   const MAX_NAME_LENGTH = 60;
 
@@ -65,9 +73,13 @@
     }
   `;
 
+  const HOST_CSS = {
+    'mail.google.com': '[aria-label="Studio" i] { display: none !important; }',
+  };
+
   function injectStyle() {
     const style = document.createElement('style');
-    style.textContent = CSS;
+    style.textContent = CSS + (HOST_CSS[location.hostname] || '');
     (document.head || document.documentElement).appendChild(style);
   }
 
@@ -86,7 +98,7 @@
   function isPromo(el) {
     const name = accessibleName(el);
     if (!name || name.length > MAX_NAME_LENGTH) return false;
-    return PROMO_PATTERNS.some((re) => re.test(name));
+    return ACTIVE_PATTERNS.some((re) => re.test(name));
   }
 
   function isLandmark(el) {

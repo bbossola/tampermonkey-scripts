@@ -30,6 +30,10 @@ as an ancestor contains anything else clickable — that's a toolbar, not a prom
 `accounts.google.com`, `one.google.com`, `payments.google.com` and `play.google.com`
 are excluded: that's where you'd legitimately manage a subscription.
 
+Some targets only make sense on one host — Gmail's **Studio** button is hidden there,
+but "Studio" is a real product name on `aistudio.google.com`, so that pattern is scoped
+via `HOST_PATTERNS` rather than applied globally.
+
 ## When Google changes something
 
 Set `DEBUG = true` at the top of the script. Every hidden element is logged with a
@@ -44,7 +48,9 @@ All at the top of the file:
 | --- | --- |
 | `DEBUG` | Log every hidden element to the console |
 | `EXCLUDED_HOSTS` | Hosts the script leaves alone entirely |
-| `PROMO_PATTERNS` | Anchored regexes matched against accessible names |
+| `PROMO_PATTERNS` | Anchored regexes matched against accessible names, everywhere |
+| `HOST_PATTERNS` | Extra regexes that apply on one host only |
+| `HOST_CSS` | Extra static CSS for one host only |
 | `MAX_NAME_LENGTH` | Names longer than this are containers, not buttons |
 | `MAX_LIFT` | How far to climb looking for the promo card |
 | `MAX_PANEL_TEXT` | A candidate card holding more text than this is page furniture |
