@@ -10,6 +10,10 @@ in the root README.
 
 Runs on `https://*.google.com/*` at `document-start`, with `@grant none`.
 
+`https://meet.google.com/*` is excluded in the header with `@exclude`, so Tampermonkey
+never injects the script into a Meet call. This also covers Meet frames embedded in Gmail
+and Calendar, because those frames load from `meet.google.com`.
+
 ## How it works
 
 Two layers, because Google rewrites this markup often:

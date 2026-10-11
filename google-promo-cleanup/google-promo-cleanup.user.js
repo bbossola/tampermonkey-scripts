@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Google Promo Cleanup
 // @namespace    https://github.com/bbossola/google-promo-cleanup
-// @version      1.0.0
+// @version      1.0.1
 // @description  Hides the "Upgrade" / "Get Google AI Pro" buttons and promo panels Google injects into Gmail, Gemini, Docs, Drive and friends.
 // @author       Bruno Bossola
 // @match        https://*.google.com/*
+// @exclude      https://meet.google.com/*
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
